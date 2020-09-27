@@ -9,6 +9,3 @@ This plugin solves the above problem by implementing an event system into the Vu
 ### The thing about actions
 
 Most of the time, you'll probably listen to mutations as an action typically results in a mutation you can be sure that the data you need will always be available after a mutation occurs. However, there are scenarios where you want to listen to an action. To accomodate for asynchronous actions like API calls, Vue natively exposes two lifecycle methods when an action is fired, the "before" action and the "after" action. These two lifecycle methods are utilized in this plugin on a per action basis. However, only a single global listener is registered so the code does create unnecessary subscribers and keep the memory footprint minimal.
-
-### Todos
-[] - automated tests
