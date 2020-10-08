@@ -18,6 +18,7 @@ export default class ListenerMediator {
 
   hasListener(vuexModule, listenerType, type) {
     return (
+      vuexModule &&
       vuexModule.listeners &&
       vuexModule.listeners[listenerType] &&
       vuexModule.listeners[listenerType][type]

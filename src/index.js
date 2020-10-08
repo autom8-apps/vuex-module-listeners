@@ -1,6 +1,6 @@
 import ListenerMediator from "./mediator";
 
-export default function run(store, router) {
+export default function(store, router) {
   store.subscribe((event, state) => {
     new ListenerMediator(
       "mutations",
