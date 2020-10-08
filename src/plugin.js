@@ -7,26 +7,24 @@ const CONSTANTS = {
 
 export const hasListener = (vuexModule, opts) => {
   return opts.listenerType === CONSTANTS.actions
-    ? opts.hasAction(vuexModule, opts)
-    : opts.hasMutation(vuexModule, opts);
+    ? hasAction(vuexModule, opts)
+    : hasMutation(vuexModule, opts);
 }
 
 export const hasMutation = (vuexModule, opts) => {
   return (
-    vuexModule &&
-    vuexModule.listeners &&
-    vuexModule.listeners[opts.listenerType][opts.actionTiming][opts.event.type]
+    typeof vuexModule === "object" &&
+    typeof vuexModule.listeners === "object" &&
+    typeof vuexModule.listeners[opts.listenerType][opts.actionTiming][opts.event.type] === "object"
   );
 }
 
 export const hasAction = (vuexModule, opts) => {
   return (
-    vuexModule.listeners &&
-    vuexModule.listeners[opts.listenerType] &&
-    vuexModule.listeners.actions[opts.listenerType][opts.event.type] &&
-    vuexModule.listeners.actions[opts.listenerType][opts.actionTiming][
-      opts.event.type
-    ]
+    typeof vuexModule.listeners === "object" &&
+    typeof vuexModule.listeners[opts.listenerType] === "object" &&
+    typeof vuexModule.listeners[opts.listenerType][opts.event.type] === "object" &&
+    typeof vuexModule.listeners[opts.listenerType][opts.actionTiming][opts.event.type] === "function"
   );
 }
 

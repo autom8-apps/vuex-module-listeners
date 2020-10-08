@@ -1,14 +1,22 @@
-import VuexModuleMock from "../mocks/vuex-module.mock";
-import VuexMutationOptsMock from "../mocks/vuex-mutations-opts.mock";
-import VuexActionsBeforeOptsMock from "../mocks/vuex-actions-before-opts.mock";
-import VuexActionsAfterOptsMock from "../mocks/vuex-actions-after-opts.mock";
-import { hasListener, trigger, hasMutation, hasAction, handleMutation, handleAction } from "../plugin";
+import {
+  hasListener,
+  trigger,
+  hasMutation,
+  hasAction,
+  handleMutation,
+  handleAction,
+} from "../plugin";
+import VuexModuleMock from "../__mocks__/vuex-module.mock";
+import VuexMutationOptsMock from "../__mocks__/vuex-mutations-opts.mock";
+import VuexActionsBeforeOptsMock from "../__mocks__/vuex-actions-before-opts.mock";
+import VuexActionsAfterOptsMock from "../__mocks__/vuex-actions-after-opts.mock";
 
 describe('ListenerMediator', () => {
   describe("hasAction", () => {
     it('should return false if vuexModule.listeners is not defined', () => {
       const vuexModule = {}
-      expect(hasAction(vuexModule, VuexActionsBeforeOptsMock)).toBe(false);
+      const result = hasAction(vuexModule, VuexActionsBeforeOptsMock);
+      expect(result).toBe(false);
     });
     it("should return false if vuexModule.listeners.actions is not defined", () => {
       const vuexModule = {
@@ -170,9 +178,5 @@ describe('ListenerMediator', () => {
     it("should return false if module.listeners.actions.after.TEST is not defined", () => {
       expect(hasListener(VuexModuleMock, VuexActionsAfterOptsMock)).toBe(false);
     });
-  });
-
-  describe("handleActionListener", () => {
-
   });
 });
