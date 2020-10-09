@@ -1,4 +1,4 @@
-const CONSTANTS = {
+export const CONSTANTS = {
   actions: "actions",
   mutations: "mutations",
   before: "before",

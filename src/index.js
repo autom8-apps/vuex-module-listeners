@@ -1,9 +1,10 @@
 import { trigger } from "./plugin";
+import { CONSTANTS } from "./plugin";
 
 export default function(store, router) {
   store.subscribe((event, state) =>
     trigger({
-      listenerType: "mutations",
+      listenerType: CONSTANTS.mutations,
       store,
       event,
       state,
@@ -14,8 +15,8 @@ export default function(store, router) {
   store.subscribeAction({
     before: (event, state) =>
       trigger({
-        listenerType: "actions",
-        actionTiming: "before",
+        listenerType: CONSTANTS.actions,
+        actionTiming: CONSTANTS.before,
         store,
         event,
         state,
@@ -23,8 +24,8 @@ export default function(store, router) {
       }),
     after: (event, state) =>
       trigger({
-        listenerType: "actions",
-        actionTiming: "after",
+        listenerType: CONSTANTS.actions,
+        actionTiming: CONSTANTS.after,
         store,
         event,
         state,
