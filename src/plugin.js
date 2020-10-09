@@ -46,7 +46,7 @@ export const handleMutation = (vuexModule, opts) => {
   }
 }
 
-export const handleAction = (opts, vuexModule) => {
+export const handleAction = (vuexModule, opts) => {
   if (hasListener(vuexModule, opts)) {
     return vuexModule.listeners
       [opts.listenerType]
