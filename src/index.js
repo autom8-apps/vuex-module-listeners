@@ -1,36 +1,35 @@
-import ListenerMediator from "./mediator";
+import { trigger } from "./plugin";
+import { CONSTANTS } from "./plugin";
 
 export default function(store, router) {
-  store.subscribe((event, state) => {
-    new ListenerMediator(
-      "mutations",
+  store.subscribe((event, state) =>
+    trigger({
+      listenerType: CONSTANTS.mutations,
       store,
       event,
       state,
       router
-    ).triggerListenersByType();
-  });
+    })
+  );
 
   store.subscribeAction({
-    before: (event, state) => {
-      new ListenerMediator(
-        "actions",
+    before: (event, state) =>
+      trigger({
+        listenerType: CONSTANTS.actions,
+        actionTiming: CONSTANTS.before,
         store,
         event,
         state,
         router,
-        "before"
-      ).triggerListenersByType();
-    },
-    after: (event, state) => {
-      new ListenerMediator(
-        "actions",
+      }),
+    after: (event, state) =>
+      trigger({
+        listenerType: CONSTANTS.actions,
+        actionTiming: CONSTANTS.after,
         store,
         event,
         state,
         router,
-        "after"
-      ).triggerListenersByType();
-    },
+      }),
   });
 }
