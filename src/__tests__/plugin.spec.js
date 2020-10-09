@@ -1,4 +1,4 @@
-import {
+import main, {
   hasListener,
   trigger,
   hasMutation,
@@ -11,6 +11,8 @@ import VuexModuleMock from "../__mocks__/vuex-module.mock";
 import VuexMutationOptsMock from "../__mocks__/vuex-mutations-opts.mock";
 import VuexActionsAfterOptsMock from "../__mocks__/vuex-actions-after-opts.mock";
 import VuexActionsBeforeOptsMock from "../__mocks__/vuex-actions-before-opts.mock";
+import VuexMutationsOptsMock from "../__mocks__/vuex-mutations-opts.mock";
+import vuexActionsAfterOptsMock from "../__mocks__/vuex-actions-after-opts.mock";
 
 describe('ListenerMediator', () => {
   describe("hasAction", () => {
@@ -271,6 +273,23 @@ describe('ListenerMediator', () => {
 
       expect(VuexModuleMock.listeners.actions.after.GET_SUBSCRIPTIONS.apply)
         .not.toHaveBeenCalled();
+    });
+  });
+
+  describe("proxyAction", () => {
+    it('should call handleMutation if listener type is mutations', () => {
+      const result = proxyAction(VuexModuleMock, VuexMutationsOptsMock);
+      expect(result).toBe("mutation");
+    });
+
+    it('should call handleAction if listener type is after actions', () => {
+      const result = proxyAction(VuexModuleMock, VuexActionsAfterOptsMock);
+      expect(result).toBe("action.after");
+    });
+
+    it('should call handleAction if listener type is before actions', () => {
+      const result = proxyAction(VuexModuleMock, VuexActionsBeforeOptsMock);
+      expect(result).toBe("action.before");
     });
   });
 
