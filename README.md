@@ -20,13 +20,6 @@ Please see Vuex Plugin documentation for further information on what plugin muta
 2. Since actions typically result in a mutation, it's best practice to avoid using actions if you can.
 3. this plugin only invokes one listener and using name matching of the mutation and action can very quickly handle the listener. No need for a switch statement!
 
-## Testing
-
-```bash
-npm run test
-```
-*There is also a default vscode launch config installed to run the visual studio code debugger when testing.*
-
 ## Example Vuex Module
 
 ```js
@@ -84,3 +77,10 @@ To listen to a namespaced module mutation or action you can name them listen to 
   }
 }
 ```
+
+## Testing
+
+```bash
+npm run test
+```
+*There is also a default vscode launch config installed to run the visual studio code debugger when testing.*
