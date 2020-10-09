@@ -4,5 +4,7 @@ export default {
   listenerType: "actions",
   actionTiming: "before",
   store: VuexMock,
-  event: VuexEventMock.actions.before
+  event: VuexEventMock.actions.before,
+  state: {},
+  router: {},
 };

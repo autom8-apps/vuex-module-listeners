@@ -30,31 +30,37 @@ export const hasAction = (vuexModule, opts) => {
 }
 
 export const handleMutation = (vuexModule, opts) => {
-  if (hasListener(modules[key], opts)) {
+  if (hasListener(vuexModule, opts)) {
     return vuexModule.listeners
-      [opts.event.type]
       [opts.listenerType]
-      .apply(opts.store, [
+      [opts.event.type]
+      .apply(
         opts.store,
-        opts.payload,
-        opts.state,
-        opts.router
-      ]);
+        [
+          opts.store,
+          opts.event.payload,
+          opts.state,
+          opts.router,
+        ]
+      );
   }
 }
 
 export const handleAction = (opts, vuexModule) => {
-  if (hasListener(modules[key], opts)) {
+  if (hasListener(vuexModule, opts)) {
     return vuexModule.listeners
       [opts.listenerType]
       [opts.actionTiming]
       [opts.event.type]
-      .apply(opts.store, [
+      .apply(
         opts.store,
-        opts.event.payload,
-        opts.state,
-        opts.router,
-      ]);
+        [
+          opts.store,
+          opts.event.payload,
+          opts.state,
+          opts.router,
+        ]
+      );
   }
 }
 

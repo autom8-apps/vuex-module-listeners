@@ -5,4 +5,6 @@ export default {
   actionTiming: "after",
   store: VuexMock,
   event: VuexEventMock.actions.after,
+  state: {},
+  router: {},
 };

@@ -5,6 +5,7 @@ import {
   hasAction,
   handleMutation,
   handleAction,
+  proxyAction,
 } from "../plugin";
 import VuexModuleMock from "../__mocks__/vuex-module.mock";
 import VuexMutationOptsMock from "../__mocks__/vuex-mutations-opts.mock";
@@ -183,4 +184,35 @@ describe('ListenerMediator', () => {
       expect(hasListener(VuexModuleMock, opts)).toBe(false);
     });
   });
+
+  describe("handleMutation", () => {
+    it('should call the apply function with the correct parameters and context', () => {
+      jest.spyOn(VuexModuleMock.listeners.mutations.SET_SUBSCRIPTION, "apply");
+      handleMutation(VuexModuleMock, VuexMutationOptsMock);
+      expect(VuexModuleMock.listeners.mutations.SET_SUBSCRIPTION.apply).toHaveBeenCalled();
+      expect(VuexModuleMock.listeners.mutations.SET_SUBSCRIPTION.apply).toHaveBeenCalledWith(
+        VuexMutationOptsMock.store,
+        [
+          VuexMutationOptsMock.store,
+          VuexMutationOptsMock.event.payload,
+          VuexMutationOptsMock.state,
+          VuexMutationOptsMock.router,
+        ]
+      );
+    });
+    it('should not call the apply function with the correct parameters and context', () => {
+      const opts = { ...VuexMutationOptsMock };
+      opts.event = {
+        type: "TEST",
+        payload: "test"
+      };
+      jest.spyOn(VuexModuleMock.listeners.mutations.SET_SUBSCRIPTION, "apply");
+      handleMutation(VuexModuleMock, opts);
+      expect(VuexModuleMock.listeners.mutations.SET_SUBSCRIPTION.apply).not.toHaveBeenCalled();
+    });
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  })
 });

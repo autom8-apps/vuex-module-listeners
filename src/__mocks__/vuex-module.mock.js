@@ -1,23 +1,17 @@
 export default {
   listeners: {
     mutations: {
-      SET_SUBSCRIPTION({ commit }, payload) {
-        commit(types.mutations.set, { ...payload });
+      SET_SUBSCRIPTION(store, payload, state, router) {
+        console.log("test");
       },
     },
     actions: {
       before: {
-        GET_SUBSCRIPTIONS({ commit }, payload) {
-          const clone = { ...payload };
-          commit(types.mutations.set, clone);
-        },
+        GET_SUBSCRIPTIONS(store, payload, state, router) {},
       },
       after: {
-        GET_SUBSCRIPTIONS({ commit }, payload) {
-          const clone = { ...payload };
-          commit(types.mutations.set, clone);
-        },
+        GET_SUBSCRIPTIONS(store, payload, state, router) {},
       },
     },
-  }
-}
+  },
+};

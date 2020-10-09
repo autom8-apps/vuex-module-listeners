@@ -4,4 +4,6 @@ export default {
   listenerType: "mutations",
   store: VuexMock,
   event: VuexEventMock.mutations,
+  state: {},
+  router: {}
 };
