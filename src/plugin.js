@@ -15,7 +15,8 @@ export const hasMutation = (vuexModule, opts) => {
   return (
     typeof vuexModule === "object" &&
     typeof vuexModule.listeners === "object" &&
-    typeof vuexModule.listeners[opts.listenerType][opts.actionTiming][opts.event.type] === "object"
+    typeof vuexModule.listeners[opts.listenerType] === "object" &&
+    typeof vuexModule.listeners[opts.listenerType][opts.event.type] === "function"
   );
 }
 
@@ -23,7 +24,7 @@ export const hasAction = (vuexModule, opts) => {
   return (
     typeof vuexModule.listeners === "object" &&
     typeof vuexModule.listeners[opts.listenerType] === "object" &&
-    typeof vuexModule.listeners[opts.listenerType][opts.event.type] === "object" &&
+    typeof vuexModule.listeners[opts.listenerType][opts.actionTiming] === "object" &&
     typeof vuexModule.listeners[opts.listenerType][opts.actionTiming][opts.event.type] === "function"
   );
 }

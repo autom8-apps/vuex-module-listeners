@@ -15,8 +15,7 @@ describe('ListenerMediator', () => {
   describe("hasAction", () => {
     it('should return false if vuexModule.listeners is not defined', () => {
       const vuexModule = {}
-      const result = hasAction(vuexModule, VuexActionsBeforeOptsMock);
-      expect(result).toBe(false);
+      expect(hasAction(vuexModule, VuexActionsBeforeOptsMock)).toBe(false);
     });
     it("should return false if vuexModule.listeners.actions is not defined", () => {
       const vuexModule = {
@@ -24,7 +23,7 @@ describe('ListenerMediator', () => {
           mutations: {}
         }
       };
-      expect(vuexModule, VuexActionsBeforeOptsMock).toBe(false);
+      expect(hasAction(vuexModule, VuexActionsBeforeOptsMock)).toBe(false);
     });
     it("should return false if vuexModule.listeners.actions.before is not defined", () => {
       const vuexModule = {
@@ -38,7 +37,7 @@ describe('ListenerMediator', () => {
         listenerType: "actions",
         actionTiming: "before",
       }
-      expect(vuexModule, opts).toBe(false);
+      expect(hasAction(vuexModule, opts)).toBe(false);
     });
     it("should return false if vuexModule.listeners.actions.after is not defined", () => {
       const vuexModule = {
@@ -52,7 +51,7 @@ describe('ListenerMediator', () => {
         listenerType: "actions",
         actionTiming: "after",
       };
-      expect(vuexModule, opts).toBe(false);
+      expect(hasAction(vuexModule, opts)).toBe(false);
     });
     it("should return false if vuexModule.listeners.actions.before['TEST'] is not defined", () => {
       const opts = {
@@ -70,7 +69,7 @@ describe('ListenerMediator', () => {
           }
         }
       };
-      expect(vuexModule,opts).toBe(false);
+      expect(hasAction(vuexModule,opts)).toBe(false);
     });
     it("should return true if vuexModule.listeners.actions.before['TEST'] is defined", () => {
       const opts = {
@@ -84,12 +83,12 @@ describe('ListenerMediator', () => {
         listeners: {
           actions: {
             before: {
-              TEST: {}
+              TEST: () => {}
             }
           }
         }
       };
-      expect(vuexModule,opts).toBe(true);
+      expect(hasAction(vuexModule,opts)).toBe(true);
     });
   });
 
@@ -104,7 +103,7 @@ describe('ListenerMediator', () => {
       const vuexModule = {
         listeners: {
           mutations: {
-            TEST: {}
+            TEST: () => {}
           }
         }
       };
@@ -152,7 +151,7 @@ describe('ListenerMediator', () => {
     it('should return true if module.listeners.mutations.SET_SUBSCRIPTION is defined', () => {
       expect(hasListener(VuexModuleMock, VuexMutationOptsMock)).toBe(true);
     });
-    it('should return true if module.listeners.mutations.TEST isnt defined', () => {
+    it('should return false if module.listeners.mutations.TEST isnt defined', () => {
       const opts = {
         listenerType: "mutations",
         event: {
@@ -176,7 +175,12 @@ describe('ListenerMediator', () => {
       expect(hasListener(VuexModuleMock, VuexActionsAfterOptsMock)).toBe(true);
     });
     it("should return false if module.listeners.actions.after.TEST is not defined", () => {
-      expect(hasListener(VuexModuleMock, VuexActionsAfterOptsMock)).toBe(false);
+      const opts = { ...VuexActionsAfterOptsMock };
+      opts.event = {
+        type: "TEST",
+        payload: "test",
+      };
+      expect(hasListener(VuexModuleMock, opts)).toBe(false);
     });
   });
 });

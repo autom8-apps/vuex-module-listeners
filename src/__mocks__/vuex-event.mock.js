@@ -1,6 +1,6 @@
 export default {
   mutations: {
-    type: "SET_SUBSCRIPTIONS",
+    type: "SET_SUBSCRIPTION",
     payload: "test",
   },
   actions: {
