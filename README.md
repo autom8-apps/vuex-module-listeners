@@ -6,8 +6,8 @@ One of the primary pain points I have with Vuex is that modules become more tigh
 
 ## Installation
 
-```
-bash npm i vuex-module-listeners
+```bash
+npm i vuex-module-listeners
 ```
 
 ## Usage
